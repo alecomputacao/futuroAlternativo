@@ -26,10 +26,10 @@ public class AlunoDAO extends DAOImpl<Aluno> {
 	 * @author ARTUR
 	 *
 	 */
-	public List<Aluno> findByRegistrationNumber(String registrationNumber) throws NoResultException{
+	public List<Aluno> findByRegistrationNumber(String registrationNumber) throws NoResultException {
 		Query query = entitymanager.createNamedQuery("Aluno.findByRegistrationNumber", Aluno.class)
 				.setParameter("wantedNumber", "%" + registrationNumber);
-			return query.getResultList();
+		return query.getResultList();
 
 	}
 
@@ -54,5 +54,10 @@ public class AlunoDAO extends DAOImpl<Aluno> {
 	public List<Aluno> findByStatus(String status) throws SQLException {
 		return (List<Aluno>) entitymanager.createNamedQuery("Aluno.findByStatus", Aluno.class)
 				.setParameter("wantedStatus", status).getResultList();
+	}
+
+	public List<Aluno> findByTurmaId(Long id) {
+		return (List<Aluno>) entitymanager.createNamedQuery("Aluno.findByTurmaId", Aluno.class)
+		.setParameter("turmaId", id).getResultList();
 	}
 }

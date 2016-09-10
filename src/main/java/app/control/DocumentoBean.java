@@ -60,7 +60,7 @@ public class DocumentoBean implements Serializable {
 	 */
 	public String remover(Long id) {
 		if(this.documentos.size() == 1){
-			error(pessoa.getTipopessoa() + " precisa possuir pelo menos um documento. Opera��o n�o permitida.");
+			error(pessoa.getTipoPessoa() + " precisa possuir pelo menos um documento. Opera��o n�o permitida.");
 		}
 		else{
 			Documento doc = this.dao.remove(id);
@@ -125,7 +125,7 @@ public class DocumentoBean implements Serializable {
 	public String atualizarDocumentos(Pessoa pessoa) {
 		this.pessoa = pessoa;
 		this.documentos = pessoa.getDocumentos();
-		this.setTipoPessoa(pessoa.getTipopessoa());
+		this.setTipoPessoa(pessoa.getTipoPessoa());
 		if (this.documentos.isEmpty() || this.documentos == null) {
 			warn("Nenhum documento encontrado para " + pessoa.getNome());
 		}

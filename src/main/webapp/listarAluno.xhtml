@@ -31,18 +31,6 @@
 					<h:messages id="messages" showDetail="true" closable="true"
 						autoUpdate="true" />
 					<div class="panel-body">
-						<div class="col-lg-12" align="right">
-							<h:form id="matricula-form">
-								<h:panelGrid columns="3" cellpadding="5"
-									style="margin-bottom:10px">
-									<p:inputText id="input-matricula" value="#{matricula}"
-										required="true" styleClass="form-control" placeholder="Número da matrícula"/><h:commandButton
-										action="#{alunoBean.buscarPorMatricula(matricula)}" value="Buscar"
-										process="@this, matricula-form" styleClass="btn btn-info"/>
-								</h:panelGrid>
-
-							</h:form>
-						</div>
 						<table data-toggle="table" data-show-refresh="true"
 							data-show-toggle="true" data-show-columns="true"
 							data-search="true" data-select-item-name="toolbar1"
@@ -52,9 +40,8 @@
 								<tr>
 									<th data-field="matricula" data-sortable="true">Matricula</th>
 									<th data-field="nome" data-sortable="true">Nome</th>
-									<th data-field="datanasc" data-sortable="true">Data de
-										Nascimento</th>
-									<th data-field="deletar" data-sortable="true">Deletar</th>
+									<th data-field="turma" data-sortable="true">Turma</th>
+									<th data-field="deletar" data-sortable="true">Ação</th>
 								</tr>
 							</thead>
 							<h:form rendered="#{not empty alunoBean.alunos}" id="list-form">
@@ -66,13 +53,11 @@
 											<td><h:commandLink id="btn_edit"
 													action="#{alunoBean.atualizar(aluno)}" type="submit"
 													process="@form" styleClass="form-group"> #{aluno.pessoa.nome}</h:commandLink></td>
-											<td><h:outputText value="#{aluno.pessoa.dataNasc}">
-												<f:convertDateTime pattern="dd/MM/yyyy"/>
-											</h:outputText> </td>
+											<td><h:outputText value="#{aluno.turma.codigo}"/> </td>
 											<td><h:commandLink
 													action="#{alunoBean.remover(aluno)}" type="submit"
 													process="@this @form" class="glyphicon glyphicon-trash"
-													immediate="true"> Deletar</h:commandLink></td>
+													immediate="true"> Remover</h:commandLink></td>
 										</tr>
 									</ui:repeat>
 								</tbody>

@@ -6,12 +6,11 @@
 	template="/WEB-INF/templates/Layout.xhtml">
 
 	<ui:define name="content">
-
 		<div class="row">
 			<h:form id="breadcrumb-form">
 			<ol class="breadcrumb">
-				<li><h:commandLink action="Inicio?faces-redirect=true" process="@this" type="submit" styleClass="glyphicon glyphicon-home"/></li>
-				<li class="active">Listagem de professores</li>
+				<li><h:commandLink action="alunoBean.voltar" process="@this" type="submit" styleClass="glyphicon glyphicon-home"/></li>
+				<li class="active">Listagem de alunos</li>
 			</ol>
 			</h:form>
 		</div>
@@ -19,7 +18,7 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-				<h3 class="page-header">Listagem de Professores</h3>
+				<h3 class="page-header">Listagem de Alunos</h3>
 			</div>
 		</div>
 		<!--/.row-->
@@ -28,20 +27,18 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default">
-					<div class="panel-heading">Professores cadastrados</div>
+					<div class="panel-heading">Alunos cadastrados</div>
+					<h:messages id="messages" showDetail="true" closable="true"
+						autoUpdate="true" />
 					<div class="panel-body">
-					<div class="col-lg-12" align="right">
-							<h:form id="nome-form">
-							<h:messages id="messages" showDetail="true" closable="true"
-									autoUpdate="true" />
+						<div class="col-lg-12" align="right">
+							<h:form id="matricula-form">
 								<h:panelGrid columns="3" cellpadding="5"
 									style="margin-bottom:10px">
-									<h:inputText id="input-nome" value="#{nome}"
-										required="true" styleClass="form-control" placeholder="Nome para a consulta">
-									</h:inputText>
-									<h:commandButton
-										action="#{professorBean.buscarPorNome(nome)}" value="Buscar"
-										process="@form" styleClass="btn btn-info"/>
+									<h:inputText id="input-matricula" value="#{matricula}"
+										required="true" styleClass="form-control" placeholder="Número da matrícula"/><h:commandButton
+										action="#{alunoBean.buscarPorMatricula(matricula)}" value="Buscar"
+										process="@this, matricula-form" styleClass="btn btn-info"/>
 								</h:panelGrid>
 
 							</h:form>
@@ -53,25 +50,25 @@
 							data-sort-order="desc">
 							<thead>
 								<tr>
+									<th data-field="matricula" data-sortable="true">Matricula</th>
 									<th data-field="nome" data-sortable="true">Nome</th>
-									<th data-field="formacao" data-sortable="true">Formação Acadêmica</th>
-									<th data-field="email" data-sortable="true">E-mail</th>
+									<th data-field="turma" data-sortable="true">Turma</th>
 									<th data-field="deletar" data-sortable="true">Deletar</th>
 								</tr>
 							</thead>
-							<h:form rendered="#{not empty professorBean.professors}" id="list_form">
+							<h:form rendered="#{not empty alunoBean.alunos}" id="list-form">
 								<tbody>
-									<ui:repeat var="professor" value="#{professorBean.professors}"
+									<ui:repeat var="aluno" value="#{alunoBean.alunos}"
 										varStatus="status">
 										<tr>
+											<td>#{aluno.matricula}</td>
 											<td><h:commandLink id="btn_edit"
-													action="#{professorBean.atualizar(professor)}" type="submit"
-													process="@form" styleClass="form-group">#{professor.pessoa.nome}</h:commandLink></td>
-											<td>#{professor.formacao}</td>
-											<td>#{professor.pessoa.email}</td>
+													action="#{alunoBean.atualizar(aluno)}" type="submit"
+													process="@form" styleClass="form-group"> #{aluno.pessoa.nome}</h:commandLink></td>
+											<td><h:outputText value="#{aluno.turma.codigo}"/> </td>
 											<td><h:commandLink
-													action="#{professorBean.remover(professor)}" type="submit"
-													process="@form" class="glyphicon glyphicon-trash"
+													action="#{alunoBean.remover(aluno)}" type="submit"
+													process="@this @form" class="glyphicon glyphicon-trash"
 													immediate="true"> Deletar</h:commandLink></td>
 										</tr>
 									</ui:repeat>

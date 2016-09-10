@@ -61,7 +61,7 @@ public class EnderecoBean implements Serializable {
 	 */
 	public String remover(Long id) {
 		if (this.enderecos.size() == 1) {
-			error(pessoa.getTipopessoa() + " precisa possuir pelo menos um endereco. Opera��o n�o permitida.");
+			error(pessoa.getTipoPessoa() + " precisa possuir pelo menos um endereco. Opera��o n�o permitida.");
 		} else {
 			Endereco doc = this.dao.remove(id);
 			if (!doc.equals(null)) {
@@ -124,7 +124,7 @@ public class EnderecoBean implements Serializable {
 	public String atualizarEnderecos(Pessoa pessoa) {
 		this.pessoa = pessoa;
 		this.enderecos = pessoa.getEnderecos();
-		this.setTipoPessoa(pessoa.getTipopessoa());
+		this.setTipoPessoa(pessoa.getTipoPessoa());
 		if (this.enderecos.isEmpty() || this.enderecos == null) {
 			warn("Nenhum endereco encontrado para " + pessoa.getNome());
 		}

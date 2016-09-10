@@ -1,19 +1,9 @@
 package app.model;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 /**
  * The persistent class for the professor database table.
@@ -24,7 +14,6 @@ import javax.persistence.Table;
 @NamedQueries({
 @NamedQuery(name="Professor.findAll", query="SELECT p FROM Professor p"),
 @NamedQuery(name="Professor.findByName", query="SELECT p FROM Professor p WHERE p.pessoa.nome LIKE :nome")})
-
 public class Professor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -36,43 +25,25 @@ public class Professor implements Serializable {
 
 	private String nivelFormacao;
 
-	//bi-directional one-to-one association to Pessoa
-	@OneToOne(cascade=CascadeType.PERSIST)
-	private Pessoa pessoa;
-
 	//bi-directional many-to-many association to Disciplina
-	@ManyToMany(mappedBy="professors")
+	@ManyToMany
+	@JoinTable(
+		name="professor_has_disciplina"
+		, joinColumns={
+			@JoinColumn(name="Professor_id")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="Disciplina_id")
+			}
+		)
 	private List<Disciplina> disciplinas;
 
-	//bi-directional many-to-one association to Turma
-	@OneToMany(mappedBy="professor")
-	private List<Turma> turmas;
+	//bi-directional many-to-one association to Pessoa
+	@OneToOne
+	private Pessoa pessoa;
 
 	public Professor() {
 	}
-
-
-
-	/**
-	 * @param id
-	 * @param formacao
-	 * @param nivelFormacao
-	 * @param pessoa
-	 * @param disciplinas
-	 * @param turmas
-	 */
-	public Professor(Long id, String formacao, String nivelFormacao, Pessoa pessoa, List<Disciplina> disciplinas,
-			List<Turma> turmas) {
-		super();
-		this.id = id;
-		this.formacao = formacao;
-		this.nivelFormacao = nivelFormacao;
-		this.pessoa = pessoa;
-		this.disciplinas = disciplinas;
-		this.turmas = turmas;
-	}
-
-
 
 	public Long getId() {
 		return this.id;
@@ -98,14 +69,6 @@ public class Professor implements Serializable {
 		this.nivelFormacao = nivelFormacao;
 	}
 
-	public Pessoa getPessoa() {
-		return this.pessoa;
-	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-
 	public List<Disciplina> getDisciplinas() {
 		return this.disciplinas;
 	}
@@ -114,26 +77,12 @@ public class Professor implements Serializable {
 		this.disciplinas = disciplinas;
 	}
 
-	public List<Turma> getTurmas() {
-		return this.turmas;
+	public Pessoa getPessoa() {
+		return this.pessoa;
 	}
 
-	public void setTurmas(List<Turma> turmas) {
-		this.turmas = turmas;
-	}
-
-	public Turma addTurma(Turma turma) {
-		getTurmas().add(turma);
-		turma.setProfessor(this);
-
-		return turma;
-	}
-
-	public Turma removeTurma(Turma turma) {
-		getTurmas().remove(turma);
-		turma.setProfessor(null);
-
-		return turma;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	public void restaurar(Professor professor) {
@@ -142,13 +91,18 @@ public class Professor implements Serializable {
 		this.formacao = professor.getFormacao();
 		this.nivelFormacao = professor.getNivelFormacao();
 		this.pessoa = professor.getPessoa();
-		this.turmas = professor.getTurmas();
+		//this.turmas = professor.getTurmas();
 
 	}
 
 	@Override
 	public Professor clone(){
-		return new Professor(this.id, this.formacao, this.nivelFormacao, this.pessoa, this.disciplinas, this.turmas);
-	}
+		Professor profClone = new Professor();
+		profClone.setId(id);
+		profClone.setNivelFormacao(nivelFormacao);
+		profClone.setPessoa(pessoa);
+		profClone.setDisciplinas(disciplinas);
 
+		return profClone;
+	}
 }

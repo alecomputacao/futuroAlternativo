@@ -109,7 +109,7 @@ public class PessoaBean implements Serializable {
 			this.pessoa.setDocumentos(null);
 			this.pessoa.setEnderecos(null);
 			this.pessoa.setPlasticos(null);
-			this.pessoa.setTipopessoa("");
+			this.pessoa.setTipoPessoa("");
 		}
 		return "Inicio";
 	}

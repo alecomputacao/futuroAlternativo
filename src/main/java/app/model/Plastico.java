@@ -1,18 +1,9 @@
 package app.model;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the plastico database table.
@@ -27,7 +18,7 @@ public class Plastico implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 
 	@Temporal(TemporalType.DATE)
@@ -37,7 +28,7 @@ public class Plastico implements Serializable {
 
 	private String status;
 
-	// bi-directional many-to-one association to Pessoa
+	//bi-directional many-to-one association to Pessoa
 	@ManyToOne
 	private Pessoa pessoa;
 

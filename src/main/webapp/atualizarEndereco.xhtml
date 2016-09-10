@@ -9,34 +9,34 @@
 		<div class="row">
 			<h:form id="breadcrumb-form" rendered="#{enderecoBean.tipoPessoa == 'ALUNO'}">
 				<ol class="breadcrumb">
-					<li><p:commandLink action="Inicio?faces-redirect=true"
+					<li><h:commandLink action="Inicio?faces-redirect=true"
 							process="@this" type="submit"
 							styleClass="glyphicon glyphicon-home" /></li>
-					<li><p:commandLink action="listarAluno?faces-redirect=true"
-							process="@this" type="submit">Listagem de alunos</p:commandLink></li>
-					<li><p:commandLink action="atualizarAluno?faces-redirect=true"
-							process="@this" type="submit">Atualizar dados alunos</p:commandLink></li>
-					<li><p:commandLink action="listarEndereco?faces-redirect=true"
-							process="@this" type="submit">Listagem de enderecos</p:commandLink></li>
+					<li><h:commandLink action="listarAluno?faces-redirect=true"
+							process="@this" type="submit">Listagem de alunos</h:commandLink></li>
+					<li><h:commandLink action="atualizarAluno?faces-redirect=true"
+							process="@this" type="submit">Atualizar dados alunos</h:commandLink></li>
+					<li><h:commandLink action="listarEndereco?faces-redirect=true"
+							process="@this" type="submit">Listagem de enderecos</h:commandLink></li>
 					<li class="active">Atualizar Endereco</li>
 				</ol>
 			</h:form>
 
 			<h:form id="breadcrumb-form-2" rendered="#{enderecoBean.tipoPessoa == 'PROFESSOR'}">
 				<ol class="breadcrumb">
-					<li><p:commandLink action="Inicio?faces-redirect=true"
+					<li><h:commandLink action="Inicio?faces-redirect=true"
 							process="@this" type="submit"
 							styleClass="glyphicon glyphicon-home" /></li>
-					<li><p:commandLink action="listarProfessor?faces-redirect=true"
-							process="@this" type="submit">Listagem de alunos</p:commandLink></li>
-					<li><p:commandLink action="atualizarProfessor?faces-redirect=true"
-							process="@this" type="submit">Atualizar dados alunos</p:commandLink></li>
-					<li><p:commandLink action="listarEndereco?faces-redirect=true"
-							process="@this" type="submit">Listagem de enderecos</p:commandLink></li>
+					<li><h:commandLink action="listarProfessor?faces-redirect=true"
+							process="@this" type="submit">Listagem de alunos</h:commandLink></li>
+					<li><h:commandLink action="atualizarProfessor?faces-redirect=true"
+							process="@this" type="submit">Atualizar dados alunos</h:commandLink></li>
+					<li><h:commandLink action="listarEndereco?faces-redirect=true"
+							process="@this" type="submit">Listagem de enderecos</h:commandLink></li>
 					<li class="active">Atualizar Endereco</li>
 				</ol>
 			</h:form>
-			
+
 		</div>
 		<!--/.row-->
 
@@ -59,37 +59,37 @@
 								<div class="col-md-3">
 									<div class="form-group">
 										<label>CEP:</label>
-										<p:inputText value="#{enderecoBean.endereco.cep}"
+										<h:inputText value="#{enderecoBean.endereco.cep}"
 											styleClass="form-control" id="cep-end" />
 									</div>
 									<div class="form-group">
 										<label>Logradouro:</label>
-										<p:inputText value="#{enderecoBean.endereco.logradouro}"
+										<h:inputText value="#{enderecoBean.endereco.logradouro}"
 											styleClass="form-control" id="logradouro-end" />
 									</div>
 									<div class="form-group">
 										<label>Número:</label>
-										<p:inputText value="#{enderecoBean.endereco.numero}"
+										<h:inputText value="#{enderecoBean.endereco.numero}"
 											styleClass="form-control" id="numero-end" />
 									</div>
 								</div>
 								<div class="col-md-3">
 									<div class="form-group">
 										<label>Bairro:</label>
-										<p:inputText value="#{enderecoBean.endereco.bairro}"
+										<h:inputText value="#{enderecoBean.endereco.bairro}"
 											styleClass="form-control" id="bairro-end" />
 									</div>
 
 
 									<div class="form-group">
 										<label>Cidade:</label>
-										<p:inputText value="#{enderecoBean.endereco.cidade}"
+										<h:inputText value="#{enderecoBean.endereco.cidade}"
 											styleClass="form-control" id="cidade-end" />
 									</div>
 
 									<div class="form-group">
 										<label>UF:</label>
-										<p:inputText value="#{enderecoBean.endereco.uf}"
+										<h:inputText value="#{enderecoBean.endereco.uf}"
 											styleClass="form-control" id="uf-end" style="width: 70px" />
 									</div>
 								</div>
@@ -120,7 +120,7 @@
 									</div>
 									<div class="form-group">
 										<label>Telefone:</label>
-										<p:inputText value="#{enderecoBean.endereco.telefone}"
+										<h:inputText value="#{enderecoBean.endereco.telefone}"
 											styleClass="form-control" id="telefone-end" />
 									</div>
 								</div>

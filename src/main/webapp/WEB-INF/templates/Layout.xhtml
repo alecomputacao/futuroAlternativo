@@ -21,12 +21,23 @@
 
 	<!--Icons-->
 	<script src="#{request.contextPath}/resources/js/lumino.glyphs.js"></script>
+	<!-- script
+		src="#{request.contextPath}/resources/js/jquery.maskedinput-1.4.1.js"></script-->
 	<!--h:outputScript name="#{request.contextPath}/resources/js/locales.js" library="js"></h:outputScript-->
 	<!--[if lt IE 9]>
 <script src="#{request.contextPath}/resources/js/html5shiv.js"></script>
 <script src="#{request.contextPath}/resources/js/respond.min.js"></script>
 <![endif]-->
-
+	<!-- script type="text/javascript">
+		jQuery(function($) {
+			$("#date").mask("99/99/9999", {
+				placeholder : "mm/dd/yyyy"
+			});
+			$("#phone").mask("(999) 999-9999");
+			$("#tin").mask("99-9999999");
+			$("#ssn").mask("999-99-9999");
+		});
+	</script-->
 </h:head>
 
 <h:body>
@@ -42,22 +53,26 @@
 				</button>
 				<a class="navbar-brand" href="#{request.contextPath}/Inicio.xhtml"><span>FUTURO</span>ALTERNATIVO</a>
 				<h:form id="user-menu-form">
-				<ul class="user-menu">
-					<li class="dropdown pull-right"><a href="#"
-						class="dropdown-toggle" data-toggle="dropdown"><span
-							class="glyphicon glyphicon-user"></span> <h:outputText value=" #{LoginBean.usuario.nomeUsuario}" /> <span
-							class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="#"><i class="glyphicon glyphicon-user"></i>
-									Perfil</a></li>
-							<li><a href="#"><i class="glyphicon glyphicon-wrench"></i>
-									Configurações</a></li>
-							<li><h:commandLink action="/salvarUsuario?faces-redirect=true" type="submit"><i class="glyphicon glyphicon-tower"></i>
+					<ul class="user-menu">
+						<li class="dropdown pull-right"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"><span
+								class="glyphicon glyphicon-user"></span> <h:outputText
+									value=" #{LoginBean.usuario.nomeUsuario}" /> <span
+								class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#"><i class="glyphicon glyphicon-user"></i>
+										Perfil</a></li>
+								<li><a href="#"><i class="glyphicon glyphicon-wrench"></i>
+										Configurações</a></li>
+								<li><h:commandLink
+										action="/salvarUsuario?faces-redirect=true" type="submit">
+										<i class="glyphicon glyphicon-tower"></i>
 									Usuarios</h:commandLink></li>
-							<li><h:commandLink action="#{LoginBean.logout()}" ><i class="glyphicon glyphicon-log-out"></i>
+								<li><h:commandLink action="#{LoginBean.logout()}">
+										<i class="glyphicon glyphicon-log-out"></i>
 									Sair</h:commandLink></li>
-						</ul></li>
-				</ul>
+							</ul></li>
+					</ul>
 				</h:form>
 			</div>
 		</div>
@@ -67,52 +82,56 @@
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 		<form role="search">
 			<div class="form-group">
-				<input type="text" class="form-control" disabled="disabled" placeholder="Buscar" />
+				<input type="text" class="form-control" disabled="disabled"
+					placeholder="Buscar" />
 			</div>
 		</form>
 		<ul class="nav menu">
 			<li class="active"><a href="#{request.contextPath}/Inicio.xhtml"><span
-					class="glyphicon glyphicon-dashboard"></span> Dashboard</a>
-			</li>
-			<li class="parent ">
-				<a href="#" >
-					<span data-toggle="collapse" href="#gerenciar-aluno" class="glyphicon glyphicon-chevron-down"></span> Gerenciar Alunos
-				</a>
+					class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+			<li class="parent "><a href="#"> <span
+					data-toggle="collapse" href="#gerenciar-aluno"
+					class="glyphicon glyphicon-chevron-down"></span> Gerenciar Alunos
+			</a>
 				<ul class="children collapse" id="gerenciar-aluno">
-					<li>
-						<h:link class="" outcome="salvarAluno?faces-redirect=true">
-							<span class="glyphicon glyphicon-chevron-right"/> Adicionar aluno
-						</h:link>
-					</li>
-					<li>
-						<h:link class="" outcome="listarAluno?faces-redirect=true">
-							<span class="glyphicon glyphicon-chevron-right"/> Buscar aluno
-						</h:link>
-					</li>
-				</ul>
-			</li>
-			<li class="parent ">
-				<a href="#" >
-					<span data-toggle="collapse" href="#gerenciar-professor" class="glyphicon glyphicon-chevron-down"></span> Gerenciar Professores
-				</a>
+					<li><h:link class="" outcome="salvarAluno?faces-redirect=true">
+							<span class="glyphicon glyphicon-chevron-right" /> Adicionar aluno
+						</h:link></li>
+					<li><h:link class="" outcome="listarAluno?faces-redirect=true">
+							<span class="glyphicon glyphicon-chevron-right" /> Buscar aluno
+						</h:link></li>
+				</ul></li>
+			<li class="parent "><a href="#"> <span
+					data-toggle="collapse" href="#gerenciar-professor"
+					class="glyphicon glyphicon-chevron-down"></span> Gerenciar
+					Professores
+			</a>
 				<ul class="children collapse" id="gerenciar-professor">
-					<li>
-						<h:link class="" outcome="salvarProfessor?faces-redirect=true">
-							<span class="glyphicon glyphicon-chevron-right"/> Adicionar professor
-						</h:link>
-					</li>
-					<li>
-						<h:link class="" outcome="listarProfessor?faces-redirect=true">
-							<span class="glyphicon glyphicon-chevron-right"/> Buscar professor
-						</h:link>
-					</li>
-				</ul>
-			</li>
-			<li class="parent ">
-				<h:link class="" outcome="relatorios?faces-redirect=true">
+					<li><h:link class=""
+							outcome="salvarProfessor?faces-redirect=true">
+							<span class="glyphicon glyphicon-chevron-right" /> Adicionar professor
+						</h:link></li>
+					<li><h:link class=""
+							outcome="listarProfessor?faces-redirect=true">
+							<span class="glyphicon glyphicon-chevron-right" /> Buscar professor
+						</h:link></li>
+				</ul></li>
+			<li class="parent "><a href="#"> <span
+					data-toggle="collapse" href="#gerenciar-turma"
+					class="glyphicon glyphicon-chevron-down"></span> Gerenciar Turmas
+			</a>
+				<ul class="children collapse" id="gerenciar-turma">
+					<li><h:link class="" outcome="salvarTurma?faces-redirect=true">
+							<span class="glyphicon glyphicon-chevron-right" /> Criar turma
+						</h:link></li>
+					<li><h:link class="" outcome="listarTurma?faces-redirect=true">
+							<span class="glyphicon glyphicon-chevron-right" /> Todas as turmas
+						</h:link></li>
+				</ul></li>
+			<li class="parent "><h:link class=""
+					outcome="relatorios?faces-redirect=true">
 					<span class="glyphicon glyphicon-chevron-right"></span> Relatorios
-				</h:link>
-			</li>
+				</h:link></li>
 		</ul>
 	</div>
 	<!--/.sidebar-->
@@ -127,8 +146,10 @@
 	<script
 		src="#{request.contextPath}/resources/js/bootstrap-datepicker.js"></script>
 	<script src="#{request.contextPath}/resources/js/bootstrap-table.js"></script>
-	<script src="#{request.contextPath}/resources/futuro/javascripts/jquery.steps.js"></script>
-	<script src="#{request.contextPath}/resources/futuro/javascripts/jquery.steps.min.js"></script>
+	<script
+		src="#{request.contextPath}/resources/futuro/javascripts/jquery.steps.js"></script>
+	<script
+		src="#{request.contextPath}/resources/futuro/javascripts/jquery.steps.min.js"></script>
 	<script src="#{request.contextPath}/resources/js/chart.min.js"></script>
 </h:body>
 

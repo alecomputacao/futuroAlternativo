@@ -50,12 +50,12 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Nome:</label>
-										<p:inputText value="#{pessoaBean.pessoa.nome}" required="true"
+										<h:inputText value="#{pessoaBean.pessoa.nome}" required="true"
 											styleClass="form-control" id="Nome" />
 									</div>
 									<div class="form-group">
 										<label>Sexo:</label>
-										<p:inputText value="#{pessoaBean.pessoa.sexo}"
+										<h:inputText value="#{pessoaBean.pessoa.sexo}"
 											styleClass="form-control" id="Sexo" />
 									</div>
 									<div class="form-group">
@@ -66,7 +66,7 @@
 									</div>
 									<div class="form-group">
 										<label>Email:</label>
-										<p:inputText value="#{pessoaBean.pessoa.email}"
+										<h:inputText value="#{pessoaBean.pessoa.email}"
 											required="true" styleClass="form-control" id="Email" />
 									</div>
 									<div class="form-group">
@@ -84,49 +84,49 @@
 									</div>
 									<div class="form-group">
 										<label>Etnia:</label>
-										<p:inputText value="#{pessoaBean.pessoa.etnia}"
+										<h:inputText value="#{pessoaBean.pessoa.etnia}"
 											required="true" styleClass="form-control" id="Etnia" />
 									</div>
 									<div class="form-group">
 										<label>Nacionalidade:</label>
-										<p:inputText value="#{pessoaBean.pessoa.nacionalidade}"
+										<h:inputText value="#{pessoaBean.pessoa.nacionalidade}"
 											required="true" styleClass="form-control" id="Nacionalidade" />
 									</div>
 									<div class="form-group">
 										<label>Naturalidade:</label>
-										<p:inputText value="#{pessoaBean.pessoa.naturalidade}"
+										<h:inputText value="#{pessoaBean.pessoa.naturalidade}"
 											required="true" styleClass="form-control" id="Naturalidade" />
 									</div>
 									<div class="form-group">
 										<label>UF:</label>
-										<p:inputText value="#{pessoaBean.pessoa.uf}" required="true"
+										<h:inputText value="#{pessoaBean.pessoa.uf}" required="true"
 											styleClass="form-control" id="UF" />
 									</div>
 									<div class="form-group">
 										<label>Necessidades Especiais:</label>
-										<p:inputText
+										<h:inputText
 											value="#{pessoaBean.pessoa.necessidadesespeciais}"
 											required="true" styleClass="form-control"
 											id="Necessidades_Especiais" />
 									</div>
 									<div class="form-group">
 										<label>Nome da Mãe:</label>
-										<p:inputText value="#{pessoaBean.pessoa.nomemae}"
+										<h:inputText value="#{pessoaBean.pessoa.nomemae}"
 											required="true" styleClass="form-control" id="Nome_Mae" />
 									</div>
 									<div class="form-group">
 										<label>Nome do Pai:</label>
-										<p:inputText value="#{pessoaBean.pessoa.nomepai}"
+										<h:inputText value="#{pessoaBean.pessoa.nomepai}"
 											required="true" styleClass="form-control" id="Nome_Pai" />
 									</div>
 									<div class="form-group">
 										<label>Numero do Celular:</label>
-										<p:inputText value="#{pessoaBean.pessoa.responsavellegal}"
+										<h:inputText value="#{pessoaBean.pessoa.responsavellegal}"
 											required="true" styleClass="form-control" id="Numero_Celular" />
 									</div>
 									<div class="form-group">
 										<label>Responsavel Legal:</label>
-										<p:inputText value="#{pessoaBean.pessoa.numerocelular}"
+										<h:inputText value="#{pessoaBean.pessoa.numerocelular}"
 											required="true" styleClass="form-control"
 											id="Responsavel_Legal" />
 									</div>
@@ -140,7 +140,7 @@
 											<f:selectItem itemValue="PROFESSOR" itemLabel="Professor" />
 										</h:selectOneMenu>
 									</div>
-									<p:commandButton value="Salvar" process="salvar_form"
+									<h:commandButton value="Salvar" process="salvar_form"
 										type="submit" action="#{pessoaBean.salvar}"
 										styleClass="btn btn-primary" update="salvar_form" />
 

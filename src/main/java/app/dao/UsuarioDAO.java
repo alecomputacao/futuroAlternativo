@@ -1,5 +1,7 @@
 package app.dao;
 
+import java.sql.SQLException;
+
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
@@ -15,7 +17,7 @@ public class UsuarioDAO extends DAOImpl<Usuario>{
 		super(clazz);
 	}
 
-	public boolean validateUser(String nomeUsuario, String senha) {
+	public boolean validateUser(String nomeUsuario, String senha) throws SQLException {
 		try {
 			Usuario usuario = (Usuario) entitymanager
 					.createQuery("SELECT u from Usuario u where u.nomeUsuario = :name and u.senha = :senha")

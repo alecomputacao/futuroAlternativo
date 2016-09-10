@@ -67,7 +67,7 @@ public class ProfessorBean implements Serializable {
 	public String salvar() {
 		try {
 
-			this.pessoa.setTipopessoa(TipoPessoa.PROFESSOR.toString());
+			this.pessoa.setTipoPessoa(TipoPessoa.PROFESSOR.toString());
 
 			// adicionando documentos � pessoa
 			this.pessoa.setDocumentos(this.documentos);

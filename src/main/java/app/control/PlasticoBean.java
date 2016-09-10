@@ -57,7 +57,7 @@ public class PlasticoBean implements Serializable{
 			warn("Nao e possivel cadastrar um cartao. Entre em contato com o Administrador do sistema.");
 			retorno = null;
 		}
-		this.tipoPessoa = this.pessoa.getTipopessoa();
+		this.tipoPessoa = this.pessoa.getTipoPessoa();
 		return retorno;
 	}
 

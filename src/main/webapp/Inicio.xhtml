@@ -24,7 +24,7 @@
 
 
 		<div class="row">
-			<p:messages id="messages" autoUpdate="true" showDetail="true" />
+			<h:messages id="messages" autoUpdate="true" showDetail="true" />
 			<div class="col-xs-12 col-md-6 col-lg-3">
 				<div class="panel panel-blue panel-widget ">
 					<div class="row no-padding">
@@ -73,7 +73,7 @@
 							<div class="text-muted">
 								<h:form id="link-form-relatorio">
 									<h:commandLink
-										action="relatorios?faces-redirect=true"
+										action="#{relatorioBean.carregarRelatorios()}"
 										process="link-form-relatorio">Relatorios</h:commandLink>
 								</h:form>
 							</div>

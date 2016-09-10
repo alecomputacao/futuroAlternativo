@@ -1,5 +1,7 @@
 package app.control;
 
+import java.io.Serializable;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -13,16 +15,21 @@ import app.model.Usuario;
 
 @ManagedBean(name = "LoginBean")
 @SessionScoped
-public class LoginManagedBean {
+public class LoginManagedBean implements Serializable{
 
-      private UsuarioDAO usuarioDAO = new UsuarioDAO(Usuario.class);
+      /**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+	private UsuarioDAO usuarioDAO = new UsuarioDAO(Usuario.class);
       private Usuario usuario = new Usuario();
-      private static Logger logger = Logger.getLogger(LoginManagedBean.class);
+      private static Logger LOGGER = Logger.getLogger(LoginManagedBean.class);
 
       public String login() {
 
-    	  	boolean valido = usuarioDAO.validateUser(usuario.getNomeUsuario(), usuario.getSenha());
-            if ( valido ) {
+    	  	try{
+    	  		boolean valido = usuarioDAO.validateUser(usuario.getNomeUsuario(), usuario.getSenha());
+    	  		if ( valido ) {
 
             	HttpSession session = SessionBean.getSession();
                 session.setAttribute("nomeUsuario",usuario.getNomeUsuario() );
@@ -37,6 +44,15 @@ public class LoginManagedBean {
                                 "Por favor retorne a pagina de login"));
             	return "login?faces-redirect=true";
             }
+    	  	}catch(Exception e){
+    	  		LOGGER.error("Erro ao efetuar login", e);
+    	  		FacesContext.getCurrentInstance().addMessage(
+                        null,
+                        new FacesMessage(FacesMessage.SEVERITY_WARN,
+                                "Erro ao efetuar login:",
+                                e.getMessage()));
+    	  		return "login?faces-redirect=true";
+    	  	}
 
       }
 
@@ -60,16 +76,16 @@ public class LoginManagedBean {
     	 novoUsuario.setNomeUsuario(novoNomeUsuario);
     	 novoUsuario.setSenha(novaSenha);
 
-    	 logger.info("Verificando se existe usuario igual na base.");
+    	 LOGGER.info("Verificando se existe usuario igual na base.");
     	 if(usuarioDAO.findByName(novoNomeUsuario) == null){
-    		 logger.info("Criando usuario.");
+    		 LOGGER.info("Criando usuario.");
     		 usuarioDAO.save(novoUsuario);
     		 FacesContext.getCurrentInstance().addMessage(
                      null,
                      new FacesMessage(FacesMessage.SEVERITY_INFO,
                              "Sucesso",
                              "Usuario " + novoNomeUsuario + " foi cadastrado com sucesso!"));
-    		 logger.info("Sucesso: Usuario " + novoNomeUsuario + " foi cadastrado com sucesso!");
+    		 LOGGER.info("Sucesso: Usuario " + novoNomeUsuario + " foi cadastrado com sucesso!");
     		 novoNomeUsuario = null;
     	 }else{
     		 FacesContext.getCurrentInstance().addMessage(
@@ -77,7 +93,7 @@ public class LoginManagedBean {
                      new FacesMessage(FacesMessage.SEVERITY_WARN,
                              "Atencao",
                              "Usuario " + novoNomeUsuario + " ja cadastrado!"));
-    		 logger.info("Atencao: Usuario " + novoNomeUsuario + " ja cadastrado!");
+    		 LOGGER.info("Atencao: Usuario " + novoNomeUsuario + " ja cadastrado!");
     		 novoNomeUsuario = null;
     	 }
 

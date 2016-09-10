@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -23,6 +24,8 @@ import org.apache.log4j.Logger;
 
 import app.model.Aluno;
 import app.model.Documento;
+import app.model.Turma;
+import app.util.ListUtil;
 import app.util.Status;
 import net.sf.dynamicreports.report.builder.DynamicReports;
 import net.sf.dynamicreports.report.builder.style.StyleBuilder;
@@ -54,58 +57,25 @@ public class RelatorioBean implements Serializable {
 	@ManagedProperty(value = "#{eventoBean}")
 	private EventoBean eventoBean;
 
+	@ManagedProperty(value = "#{turmaBean}")
+	private TurmaBean turmaBean;
+
+	private List<Turma> turmas;
+
 	private static Logger LOGGER = Logger.getLogger(RelatorioBean.class);
 
-	/**
-	 * @return the alunoBean
-	 */
-	public AlunoBean getAlunoBean() {
-		return alunoBean;
-	}
-
-	/**
-	 * @param alunoBean
-	 *            the alunoBean to set
-	 */
-	public void setAlunoBean(AlunoBean alunoBean) {
-		this.alunoBean = alunoBean;
-	}
-
-	/**
-	 * @return the documentoBean
-	 */
-	public DocumentoBean getDocumentoBean() {
-		return documentoBean;
-	}
-
-	/**
-	 * @param documentoBean
-	 *            the documentoBean to set
-	 */
-	public void setDocumentoBean(DocumentoBean documentoBean) {
-		this.documentoBean = documentoBean;
-	}
-
-	/**
-	 * @return the eventoBean
-	 */
-	public EventoBean getEventoBean() {
-		return eventoBean;
-	}
-
-	/**
-	 * @param eventoBean
-	 *            the eventoBean to set
-	 */
-	public void setEventoBean(EventoBean eventoBean) {
-		this.eventoBean = eventoBean;
+	public String carregarRelatorios() {
+		LOGGER.info("Carregando informacoes para relatorios");
+		turmaBean.buscarPorStatus(Status.ATIVO.toString());
+		turmas = turmaBean.getTurmas();
+		return "relatorios?faces-redirect=true";
 	}
 
 	/**
 	 *
 	 * @param nomeRelatorio
 	 */
-	public void relatorioAlunoSimples(String nomeRelatorio) {
+	public void relatorioAlunoSimples(String nomeRelatorio, Turma turma) {
 		LOGGER.info("Iniciando a geracao do relatorio Aluno Simples");
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext()
@@ -134,13 +104,14 @@ public class RelatorioBean implements Serializable {
 							col.column("Nome", "nome", type.stringType()), col.column("CPF", "cpf", type.stringType()),
 							col.column("Matricula", "matricula", type.stringType()),
 							col.column("Data Nascimento", "datanasc", type.dateType()),
-							col.column("Assinatura", "item1", type.stringType()))
+							col.column("", "item1", type.stringType()), col.column("", "item2", type.stringType()),
+							col.column("", "item3", type.stringType()))
 					.setColumnStyle(columnStyle)
 					// shows report title
 					// .highlightDetailEvenRows()
 					.title(// shows report title
 							cmp.horizontalList()
-									.add(cmp.text(nomeRelatorio).setStyle(titleStyle)
+									.add(cmp.text(nomeRelatorio + " turma: " + turma.getCodigo()).setStyle(titleStyle)
 											.setHorizontalAlignment(HorizontalAlignment.LEFT),
 											cmp.text("Futuro-Alternativo").setStyle(titleStyle)
 													.setHorizontalAlignment(HorizontalAlignment.RIGHT))
@@ -153,14 +124,15 @@ public class RelatorioBean implements Serializable {
 					// shows number of page at page footer
 					.pageFooter(cmp.pageXofY().setStyle(boldCenteredStyle))
 					// set datasource
-					.setDataSource(criaDataSourceRelatorioAlunoSimples())
+					.setDataSource(criaDataSourceRelatorioAlunoSimples(turma.getCodigo()))
 					// create and show report
 					.toPdf(baos);
 
 			LOGGER.info("Gerando PDF");
 			baos.toByteArray();
 			res.setContentType("application/pdf");
-			// Codigo abaixo gerar o relatorio e disponibiliza diretamente na pagina
+			// Codigo abaixo gerar o relatorio e disponibiliza diretamente na
+			// pagina
 			res.setHeader("Content-disposition", "inline;filename=" + nomeRelatorio + ".pdf");
 			// Codigo abaixo gerar o relatorio e disponibiliza para o
 			// cliente baixar ou salvar
@@ -187,30 +159,32 @@ public class RelatorioBean implements Serializable {
 	 *
 	 * @return
 	 */
-	private JRDataSource criaDataSourceRelatorioAlunoSimples() {
-		DRDataSource dataSource = new DRDataSource("nome", "cpf", "matricula", "datanasc", "item1");
-		this.alunoBean.buscarTodosPorStatus(Status.ATIVO.toString());
-		for (Aluno aluno : this.alunoBean.getAlunos()) {
-			Documento cpf = null;
-			this.documentoBean.buscarPorPessoa(aluno.getPessoa());
-			for (Documento d : this.documentoBean.getDocumentos()) {
-				if (d.getTipo().equals("CPF")) {
-					cpf = d;
-					break;
+	private JRDataSource criaDataSourceRelatorioAlunoSimples(String codigoTurma) {
+		DRDataSource dataSource = new DRDataSource("nome", "cpf", "matricula", "datanasc", "item1", "item2", "item3");
+		this.alunoBean.buscarPorTurma(codigoTurma);
+		if (ListUtil.isValid(alunoBean.getAlunos())) {
+			for (Aluno aluno : this.alunoBean.getAlunos()) {
+				Documento cpf = null;
+				this.documentoBean.buscarPorPessoa(aluno.getPessoa());
+				for (Documento d : this.documentoBean.getDocumentos()) {
+					if (d.getTipo().equals("CPF")) {
+						cpf = d;
+						break;
+					}
+
 				}
-
+				dataSource.add(aluno.getPessoa().getNome(), cpf.getNumero(), aluno.getMatricula(),
+						aluno.getPessoa().getDataNasc(), null, null, null);
 			}
-			dataSource.add(aluno.getPessoa().getNome(), cpf.getNumero(), aluno.getMatricula(),
-					aluno.getPessoa().getDataNasc(), null);
-
+			this.alunoBean.getAlunos().clear();
 		}
-		this.alunoBean.getAlunos().clear();
+
 		return dataSource;
 	}
 
 	/**
-	 * Relatorio de faltas cometidas por entrar no segundo horario ou sair
-	 * antes do horario final
+	 * Relatorio de faltas cometidas por entrar no segundo horario ou sair antes
+	 * do horario final
 	 */
 	public void relatorioFaltaHorarios() {
 		LOGGER.info("Iniciando a geracao do relatorio penalidades horarios");
@@ -353,8 +327,8 @@ public class RelatorioBean implements Serializable {
 					// .highlightDetailEvenRows()
 					.title(// shows report title
 							cmp.horizontalList()
-									.add(cmp.text("Lista de presen�a " + dataTmp)
-											.setStyle(titleStyle).setHorizontalAlignment(HorizontalAlignment.LEFT),
+									.add(cmp.text("Lista de presen�a " + dataTmp).setStyle(titleStyle)
+											.setHorizontalAlignment(HorizontalAlignment.LEFT),
 											cmp.text("Futuro-Alternativo").setStyle(titleStyle)
 													.setHorizontalAlignment(HorizontalAlignment.RIGHT))
 									.newRow()
@@ -371,7 +345,8 @@ public class RelatorioBean implements Serializable {
 					.toPdf(baos);
 			baos.toByteArray();
 			res.setContentType("application/pdf");
-			// Codigo abaixo gerar o relatorio e disponibiliza diretamente na pagina
+			// Codigo abaixo gerar o relatorio e disponibiliza diretamente na
+			// pagina
 			res.setHeader("Content-disposition", "inline;filename=Lista de presenca.pdf");
 			// Código abaixo gerar o relatorio e disponibiliza para o cliente
 			// baixar ou salvar
@@ -425,6 +400,46 @@ public class RelatorioBean implements Serializable {
 		}
 		this.alunoBean.getAlunos().clear();
 		return dataSource;
+	}
+
+	public List<Turma> getTurmas() {
+		return turmas;
+	}
+
+	public void setTurmas(List<Turma> turmas) {
+		this.turmas = turmas;
+	}
+
+	public AlunoBean getAlunoBean() {
+		return alunoBean;
+	}
+
+	public void setAlunoBean(AlunoBean alunoBean) {
+		this.alunoBean = alunoBean;
+	}
+
+	public DocumentoBean getDocumentoBean() {
+		return documentoBean;
+	}
+
+	public void setDocumentoBean(DocumentoBean documentoBean) {
+		this.documentoBean = documentoBean;
+	}
+
+	public EventoBean getEventoBean() {
+		return eventoBean;
+	}
+
+	public void setEventoBean(EventoBean eventoBean) {
+		this.eventoBean = eventoBean;
+	}
+
+	public TurmaBean getTurmaBean() {
+		return turmaBean;
+	}
+
+	public void setTurmaBean(TurmaBean turmaBean) {
+		this.turmaBean = turmaBean;
 	}
 
 	/**

@@ -1,41 +1,55 @@
 package app.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import java.io.Serializable;
+import javax.persistence.*;
 
+
+/**
+ * The persistent class for the usuario database table.
+ *
+ */
 @Entity
 @Table(name="usuario", schema="futurodb")
-@NamedQuery(name="Usuario.findByName", query="SELECT u from Usuario u where u.nomeUsuario = :name")
-public class Usuario {
+@NamedQueries({@NamedQuery(name="Usuario.findByName", query="SELECT u from Usuario u where u.nomeUsuario = :name"),
+@NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")})
+public class Usuario implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-      @Id
-      @Column(name="id", nullable=false, unique=true)
-      private int id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
 
-      @Column(name="nomeusuario", nullable=false, unique=true)
-      private String nomeUsuario;
+	@Column(name="nomeusuario", nullable=false, unique=true)
+	private String nomeUsuario;
 
-      @Column(name="senha", nullable=false, unique=false)
-      private String senha;
+	@Column(name="senha", nullable=false, unique=false)
+	private String senha;
 
+	public Usuario() {
+	}
+
+	public Long getId() {
+		return this.id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getNomeUsuario() {
-            return nomeUsuario;
-      }
+		return this.nomeUsuario;
+	}
 
-      public void setNomeUsuario(String nomeUsuario) {
-            this.nomeUsuario = nomeUsuario;
-      }
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
+	}
 
-      public String getSenha() {
-            return senha;
-      }
+	public String getSenha() {
+		return this.senha;
+	}
 
-      public void setSenha(String senha) {
-            this.senha = senha;
-      }
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 
- }
+}

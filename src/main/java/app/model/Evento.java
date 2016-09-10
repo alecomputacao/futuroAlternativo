@@ -1,18 +1,8 @@
 package app.model;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 /**
@@ -24,12 +14,13 @@ import javax.persistence.TemporalType;
 @NamedQueries({
 @NamedQuery(name="Evento.findAll", query="SELECT e FROM Evento e"),
 @NamedQuery(name="Evento.findEventsByPersonIdAndStatus", query="SELECT e FROM Evento e WHERE e.pessoa.id = :personId AND e.status = :status"),
-@NamedQuery(name="Evento.findEventsByPersonIdAndDate", query="SELECT e FROM Evento e WHERE e.pessoa.id = :personId AND date_format(e.dataHoraEntrada, 'yyyy-MM-dd') = date_format(:date, 'yyyy-MM-dd')")})
+@NamedQuery(name="Evento.findEventsByPersonIdAndDate", query="SELECT e FROM Evento e WHERE e.pessoa.id = :personId AND date_format(e.dataHoraEntrada, '%d/%m/%Y') = date_format(:date, '%d/%m/%Y')")})
+
 public class Evento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -38,20 +29,13 @@ public class Evento implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataHoraSaida;
 
-	// bi-directional many-to-one association to Pessoa
+	private String status;
+
+	//bi-directional many-to-one association to Pessoa
 	@ManyToOne
 	private Pessoa pessoa;
 
-	private String status;
-
 	public Evento() {
-	}
-
-	public Evento(Date entrada, Date saida, String status, Pessoa pessoa) {
-		this.dataHoraEntrada = entrada;
-		this.dataHoraSaida = saida;
-		this.status = status;
-		this.pessoa = pessoa;
 	}
 
 	public Long getId() {
@@ -78,20 +62,20 @@ public class Evento implements Serializable {
 		this.dataHoraSaida = dataHoraSaida;
 	}
 
+	public String getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public Pessoa getPessoa() {
 		return this.pessoa;
 	}
 
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 }

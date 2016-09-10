@@ -47,7 +47,7 @@
 										<div class="col-md-4">
 											<div class="form-group">
 												<label>Nome:</label>
-												<p:inputText value="#{professorBean.pessoa.nome}"
+												<h:inputText value="#{professorBean.pessoa.nome}"
 													required="true" styleClass="form-control" id="Nome" />
 											</div>
 											<div class="form-group">
@@ -69,7 +69,7 @@
 											</div>
 											<div class="form-group">
 												<label>Email:</label>
-												<p:inputText value="#{professorBean.pessoa.email}"
+												<h:inputText value="#{professorBean.pessoa.email}"
 													required="true" styleClass="form-control" id="Email" />
 											</div>
 											<div class="form-group">
@@ -88,56 +88,56 @@
 											</div>
 											<div class="form-group">
 												<label>Etnia:</label>
-												<p:inputText value="#{professorBean.pessoa.etnia}"
+												<h:inputText value="#{professorBean.pessoa.etnia}"
 													required="true" styleClass="form-control" id="Etnia" />
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
 												<label>Nacionalidade:</label>
-												<p:inputText value="#{professorBean.pessoa.nacionalidade}"
+												<h:inputText value="#{professorBean.pessoa.nacionalidade}"
 													required="true" styleClass="form-control"
 													id="Nacionalidade" />
 											</div>
 											<div class="form-group">
 												<label>Naturalidade:</label>
-												<p:inputText value="#{professorBean.pessoa.naturalidade}"
+												<h:inputText value="#{professorBean.pessoa.naturalidade}"
 													required="true" styleClass="form-control" id="Naturalidade" />
 											</div>
 
 											<div class="form-group">
 												<label>UF:</label>
-												<p:inputText value="#{professorBean.pessoa.uf}" required="true"
+												<h:inputText value="#{professorBean.pessoa.uf}" required="true"
 													styleClass="form-control" id="UF" style="width: 70px" />
 											</div>
 											<div class="form-group">
 												<label>Necessidades Especiais:</label>
-												<p:inputText
+												<h:inputText
 													value="#{professorBean.pessoa.necessidadesEspeciais}"
 													required="true" styleClass="form-control"
 													id="Necessidades-Especiais" />
 											</div>
 											<div class="form-group">
 												<label>Nome da Mãe:</label>
-												<p:inputText value="#{professorBean.pessoa.nomeMae}"
+												<h:inputText value="#{professorBean.pessoa.nomeMae}"
 													required="true" styleClass="form-control" id="Nome-Mae" />
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
 												<label>Nome do Pai:</label>
-												<p:inputText value="#{professorBean.pessoa.nomePai}"
+												<h:inputText value="#{professorBean.pessoa.nomePai}"
 													required="true" styleClass="form-control" id="Nome-Pai" />
 											</div>
 											<div class="form-group">
 												<label>Numero do Celular:</label>
-												<p:inputText value="#{professorBean.pessoa.responsavelLegal}"
+												<h:inputText value="#{professorBean.pessoa.responsavelLegal}"
 													required="true" styleClass="form-control"
 													id="Numero-Celular" />
 											</div>
 											<div class="form-group">
 												<label>Responsavel Legal:</label>
-												<p:inputText value="#{professorBean.pessoa.numeroCelular}"
+												<h:inputText value="#{professorBean.pessoa.numeroCelular}"
 													styleClass="form-control" id="Responsavel-Legal" />
 											</div>
 											<div class="form-group">
@@ -169,7 +169,7 @@
 												<label>Formação:</label><span style="color: red"
 													class="small">(Caso não se aplique, preencha com
 													N.A.)</span>
-												<p:inputText required="true" styleClass="form-control"
+												<h:inputText required="true" styleClass="form-control"
 													id="formacao" value="#{professorBean.professor.formacao}"
 													/>
 											</div>
@@ -209,7 +209,7 @@
 											</div>
 											<div class="form-group">
 												<label>Numero:</label>
-												<p:inputText value="#{professorBean.documento.numero}"
+												<h:inputText value="#{professorBean.documento.numero}"
 													styleClass="form-control" id="numero-doc" />
 											</div>
 										</div>
@@ -230,12 +230,12 @@
 										<div class="col-md-4">
 											<div class="form-group">
 												<label>UF:</label>
-												<p:inputText value="#{professorBean.documento.uf}"
+												<h:inputText value="#{professorBean.documento.uf}"
 													styleClass="form-control" id="uf-doc" style="width: 70px" />
 											</div>
 											<div class="form-group">
 												<label>Orgão emissor:</label>
-												<p:inputText value="#{professorBean.documento.orgaoEmissor}"
+												<h:inputText value="#{professorBean.documento.orgaoEmissor}"
 													styleClass="form-control" id="emissor-doc" />
 											</div>
 										</div>
@@ -295,37 +295,37 @@
 										<div class="col-md-3">
 											<div class="form-group">
 												<label>CEP:</label>
-												<p:inputText value="#{professorBean.endereco.cep}"
+												<h:inputText value="#{professorBean.endereco.cep}"
 													styleClass="form-control" id="cep-end" />
 											</div>
 											<div class="form-group">
 												<label>Logradouro:</label>
-												<p:inputText value="#{professorBean.endereco.logradouro}"
+												<h:inputText value="#{professorBean.endereco.logradouro}"
 													styleClass="form-control" id="logradouro-end" />
 											</div>
 											<div class="form-group">
 												<label>Número:</label>
-												<p:inputText value="#{professorBean.endereco.numero}"
+												<h:inputText value="#{professorBean.endereco.numero}"
 													styleClass="form-control" id="numero-end" />
 											</div>
 										</div>
 										<div class="col-md-3">
 											<div class="form-group">
 												<label>Bairro:</label>
-												<p:inputText value="#{professorBean.endereco.bairro}"
+												<h:inputText value="#{professorBean.endereco.bairro}"
 													styleClass="form-control" id="bairro-end" />
 											</div>
 
 
 											<div class="form-group">
 												<label>Cidade:</label>
-												<p:inputText value="#{professorBean.endereco.cidade}"
+												<h:inputText value="#{professorBean.endereco.cidade}"
 													styleClass="form-control" id="cidade-end" />
 											</div>
 
 											<div class="form-group">
 												<label>UF:</label>
-												<p:inputText value="#{professorBean.endereco.uf}"
+												<h:inputText value="#{professorBean.endereco.uf}"
 													styleClass="form-control" id="uf-end" style="width: 70px" />
 											</div>
 										</div>
@@ -357,7 +357,7 @@
 											</div>
 											<div class="form-group">
 												<label>Telefone:</label>
-												<p:inputText value="#{professorBean.endereco.telefone}"
+												<h:inputText value="#{professorBean.endereco.telefone}"
 													styleClass="form-control" id="telefone-end" />
 											</div>
 										</div>

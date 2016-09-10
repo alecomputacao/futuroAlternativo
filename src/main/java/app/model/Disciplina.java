@@ -1,18 +1,8 @@
 package app.model;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 
 /**
@@ -29,11 +19,13 @@ public class Disciplina implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 
-	private String cargahoraria;
+	private String cargaHoraria;
 
 	private String nome;
 
-	//bi-directional many-to-many association to Professor
+	@Column(name="Turma_id")
+	private int turmaId;
+
 	@ManyToMany
 	@JoinTable(
 		name="professor_has_disciplina"
@@ -46,10 +38,6 @@ public class Disciplina implements Serializable {
 		)
 	private List<Professor> professors;
 
-	//bi-directional many-to-one association to Turma
-	@OneToMany(mappedBy="disciplina")
-	private List<Turma> turmas;
-
 	public Disciplina() {
 	}
 
@@ -61,12 +49,12 @@ public class Disciplina implements Serializable {
 		this.id = id;
 	}
 
-	public String getCargahoraria() {
-		return this.cargahoraria;
+	public String getCargaHoraria() {
+		return this.cargaHoraria;
 	}
 
-	public void setCargahoraria(String cargahoraria) {
-		this.cargahoraria = cargahoraria;
+	public void setCargaHoraria(String cargaHoraria) {
+		this.cargaHoraria = cargaHoraria;
 	}
 
 	public String getNome() {
@@ -77,6 +65,14 @@ public class Disciplina implements Serializable {
 		this.nome = nome;
 	}
 
+	public int getTurmaId() {
+		return this.turmaId;
+	}
+
+	public void setTurmaId(int turmaId) {
+		this.turmaId = turmaId;
+	}
+
 	public List<Professor> getProfessors() {
 		return this.professors;
 	}
@@ -85,25 +81,4 @@ public class Disciplina implements Serializable {
 		this.professors = professors;
 	}
 
-	public List<Turma> getTurmas() {
-		return this.turmas;
-	}
-
-	public void setTurmas(List<Turma> turmas) {
-		this.turmas = turmas;
-	}
-
-	public Turma addTurma(Turma turma) {
-		getTurmas().add(turma);
-		turma.setDisciplina(this);
-
-		return turma;
-	}
-
-	public Turma removeTurma(Turma turma) {
-		getTurmas().remove(turma);
-		turma.setDisciplina(null);
-
-		return turma;
-	}
 }
